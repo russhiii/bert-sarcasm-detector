@@ -10,9 +10,7 @@ from torch.utils.data import DataLoader, Dataset
 from torch.optim import Adam
 from collections import Counter
 
-# ======================
-# Configs and Constants
-# ======================
+
 SEED = 42
 DATA_FILE = "dataset.jsonl"
 MODEL_DIR = "saved_model"
@@ -24,17 +22,13 @@ LEARNING_RATE = 2e-5
 WEIGHT_DECAY = 0.01
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-# ======================
-# Set Random Seed
-# ======================
+
 random.seed(SEED)
 np.random.seed(SEED)
 torch.manual_seed(SEED)
 torch.cuda.manual_seed_all(SEED)
 
-# ======================
-# Dataset Class
-# ======================
+
 class SarcasmDataset(Dataset):
     def __init__(self, headlines, labels, tokenizer, max_length=64):
         self.encodings = tokenizer(headlines, truncation=True, padding=True, max_length=max_length)
@@ -133,3 +127,4 @@ with open(os.path.join(QUANTIZED_DIR, "config.json"), "w") as f:
     json.dump(config, f)
 
 print(f"🧠 Quantized model saved in '{QUANTIZED_DIR}'")
+
